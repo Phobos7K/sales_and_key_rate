@@ -9,13 +9,17 @@ Bank of Russia provides SOAP 1.1-API interface, so the "zeep" library was an ide
 
 ## Variables
 "**fromDate, ToDate** YYYY-MM-DD" - Two main variables needed to set the desired date range. ToDate variable must accept the last day of the month since it also be used in `ToDate`s POST XML parameter, which is inclusive.
+
 "**dates**" - Creates a range of dates. *freq* parameter sets the frequency. The default "MS" alias defines month start frequency.
+
 "**df_sales**" - Holds the revenue data to showcase a simple use case.
+
 "**sales_rates_2024**" - Contains parsed rates and dummy revenue values.
 
 ## Functions
 `get_cbr_key_rate(fromDate:str, ToDate:str) -> pd.DataFrame`
 The function parses key rates and caches obtained data with SQLite. The data gets passed into the DataFrame through `read_xml` method where an unnecessary hours part gets truncated.
+
 `df.groupby(df.index.to_period('M')).agg(lambda x: x.mode().iloc[0])` - given some month, this line filters the most frequently met key rate and stores it for that month.
 
 `key_rate_and_sales(func:"a function to get the key rates") -> pd.DataFrame`
@@ -29,6 +33,7 @@ The parsed data is used for statistical hypothesis testing to check if there are
 
 # Technical Notes
 Python 3.13.3. `zeep`, `pandas`, and `matplotlib` as the main modules. `requirements.txt` holds all the necessary dependencies.
+
 The code was written within Jupyter Notebook on **Windows 11** Home, version 24H2, 26100.4061 OS build.
 
 # License
